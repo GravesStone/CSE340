@@ -6,6 +6,9 @@
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-image: url("/images/site/small_check.jpg");
+    }
+    .tools{
+      text-align: right;
     } 
   
     #wrapper{
@@ -55,7 +58,7 @@
       grid-column: 1/2;
       grid-row: 1/4;
       max-height: 260px;
-      width:300px;
+      width:200px;
       padding-top: 10px;
       margin-top: 20px;
     }

@@ -6,7 +6,9 @@
 }
 
 
-
+body {
+  margin: 0;
+}
 /* Header */
 #top-header{
   display: grid;

@@ -2,8 +2,8 @@
 const addClassValidate = require("../utilities/management-validation")
 const express = require("express")
 const router = new express.Router() 
-const invController = require("../controllers/invControl")
-const util = require("../utilities/")
+const invController = require("../controllers/invController")
+const util = require("../utilities")
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", util.handleErrors(invController.buildByClassificationId));

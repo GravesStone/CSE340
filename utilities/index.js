@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
-const invModel = require("../models/inventory-model")
+const invModel = require("../models/inventory-models")
 const Util = {}
 
 /* ************************
@@ -144,45 +144,7 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
- /* ****************************************
- *  Check Login
- * ************************************ */
- Util.checkLogin = (req, res, next) => {
-  if (res.locals.loggedin) {
-    next()
-  } else {
-    req.flash("notice", "Please log in.")
-    return res.redirect("/account/login")
-  }
- }
-/* ****************************************
- *  Check Type
- * ************************************ */
-Util.accountType = (req, res, next) => {
-  if (res.locals.accountData.account_type === "Admin" || res.locals.accountData.account_type === "Employee") {
-    next()
-  } else {
-    req.flash("notice", "Please log in.")
-    return res.redirect("/account/login")
-  }
- }
-  /* ****************************************
- *  Check Type
- * ************************************ */
 
-Util.checkAccountType =(isLoggedIn, accountType) => {
-  let managementGrid
-  
-  if (isLoggedIn && (accountType === "Admin" || accountType === "Employee")) {
-    managementGrid = '<h2> Inventory Management </h2>'
-    managementGrid += '<a id="inv-management-button" href="../../inv/" title="Inventory Management View "><h3>Manage Inventory</h3></a>'
-  }else{
-    managementGrid = ''
-  }
-  return managementGrid
-}
-
-//util.js
 
 Util.buildUnapprovedClassificationList = async function(data) { 
 

@@ -58,3 +58,172 @@ Util.buildClassificationGrid = async function(data){
   }
   return grid
 }
+
+/* **************************************
+* Build the details view HTML
+* ************************************ */
+
+Util.buildInventoryDetailsGrid = async function(data){
+
+  let grid
+  let vehicle = data[0]
+  if (vehicle){
+    grid = '<div id="details-page">'
+    grid += '<div class="details-images"> <img src="' + vehicle.inv_image
+    +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
+    +' on CSE Motors"></div>'
+    grid += '<div class="car-details"><h2>' + vehicle.inv_make + ' ' + vehicle.inv_model + ' Details</h2>'
+    grid += '<p> <strong> Price: $</strong>' + new Intl.NumberFormat('en-US').format(vehicle.inv_price)+'</p>'
+    grid += '<p><strong> Description: </strong>' + vehicle.inv_description + '</p>'
+    grid += '<p><strong> Color: </strong>' + vehicle.inv_color + '</p>'
+    grid += '<p><strong> Miles: </strong>' + vehicle.inv_miles.toLocaleString('en-US') + '</p></div>'
+    grid += '</div>'
+  }else{
+    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+  return grid
+}
+
+Util.selectAllClassification = async function (selectedClassificationId) {
+  console.log("Select All Classification")
+  let data = await invModel.getAllClassifications();
+  let select = '<label for="classification_id">Select Classification: </label><br>';
+  select += '<select id="classification_id" name="classification_id">';
+  data.rows.forEach((row) => {
+    select += '<option value="' + row.classification_id + '"';
+    if (row.classification_id == selectedClassificationId) {
+      select += ' selected';
+    }
+    select += '>' + row.classification_name + '</option>';
+  });
+  select += '</select>';
+  return select;
+}
+
+Util.selectClassification = async function (selectedClassificationId) {
+  let data = await invModel.getClassifications();
+  let select = '<label for="classification_id">Select Classification: </label><br>';
+  select += '<select id="classification_id" name="classification_id">';
+  data.rows.forEach((row) => {
+    select += '<option value="' + row.classification_id + '"';
+    if (row.classification_id == selectedClassificationId) {
+      select += ' selected';
+    }
+    select += '>' + row.classification_name + '</option>';
+  });
+  select += '</select>';
+  return select;
+}
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+   jwt.verify(
+    req.cookies.jwt,
+    process.env.ACCESS_TOKEN_SECRET,
+    function (err, accountData) {
+     if (err) {
+      req.flash("Please log in")
+      res.clearCookie("jwt")
+      return res.redirect("/account/login")
+     }
+     res.locals.accountData = accountData
+     res.locals.loggedin = 1
+     next()
+    })
+  } else {
+   next()
+  }
+ }
+
+ /* ****************************************
+ *  Check Login
+ * ************************************ */
+ Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+ }
+/* ****************************************
+ *  Check Type
+ * ************************************ */
+Util.accountType = (req, res, next) => {
+  if (res.locals.accountData.account_type === "Admin" || res.locals.accountData.account_type === "Employee") {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+ }
+  /* ****************************************
+ *  Check Type
+ * ************************************ */
+
+Util.checkAccountType =(isLoggedIn, accountType) => {
+  let managementGrid
+  
+  if (isLoggedIn && (accountType === "Admin" || accountType === "Employee")) {
+    managementGrid = '<h2> Inventory Management </h2>'
+    managementGrid += '<a id="inv-management-button" href="../../inv/" title="Inventory Management View "><h3>Manage Inventory</h3></a>'
+  }else{
+    managementGrid = ''
+  }
+  return managementGrid
+}
+
+//util.js
+
+Util.buildUnapprovedClassificationList = async function(data) { 
+
+  // Set up the table labels 
+  let dataTable = '<thead>'; 
+  dataTable += '<tr><th>Classification Name</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>'; 
+  dataTable += '</thead>'; 
+  // Set up the table body 
+  dataTable += '<tbody>'; 
+  // Iterate over all vehicles in the array and put each in a row 
+  data.forEach(function (element) { 
+    dataTable += `<tr><td>${element.classification_name}</td>`; 
+    dataTable += `<td><a id="approved-button" href='/inv/approved/${element.classification_id}' title='Click to Approve'>Approve</a></td>`; 
+    dataTable += `<td><a id="reject-button" href='/inv/deleteClass/${element.classification_id}' title='Click to Reject'>Reject</a></td>`; 
+    dataTable += `<td><input type="hidden" name="classification_id" value="${element.classification_id}"></td></tr>`
+  }) 
+  dataTable += '</tbody>'; 
+  // Display the contents in the Inventory Management view 
+  return dataTable;
+}
+
+
+  // Build inventory items into HTML table components and inject into DOM 
+Util.buildUnapprovedInventoryList = async function(data) { 
+  // Set up the table labels 
+  let dataTable = '<thead>'; 
+  dataTable += '<tr><th>Classification Name</th><th>Vehicle Name</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>'; 
+  dataTable += '</thead>'; 
+  // Set up the table body 
+  dataTable += '<tbody>'; 
+  // Iterate over all vehicles in the array and put each in a row 
+  data.forEach(function (element) { 
+   dataTable += `<tr><td>${element.classification_name}</td>`
+   dataTable += `<td>${element.inv_make} ${element.inv_model}</td>`; 
+   dataTable += `<td><a id="approved-button1" href='/inv/approvedInv/${element.inv_id}' title='Click to Approved'>Approved</a></td>`; 
+   dataTable += `<td><a id="reject-button1" href='/inv/delete/${element.inv_id}' title='Click to Reject'>Reject</a></td>`; 
+   dataTable += `<td><input type="hidden" name="classification_id" value="${element.classification_id}"></td></tr>`
+  }) 
+  dataTable += '</tbody>'; 
+  // Display the contents in the Inventory Management view 
+  return dataTable; 
+ }
+
+module.exports = Util

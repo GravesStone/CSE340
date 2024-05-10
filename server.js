@@ -3,7 +3,6 @@
  * application. It is used to control the project.
  *******************************************/
 
-const pool = require("../database/");
 
 /* ***********************
  * Require Statements
@@ -14,6 +13,7 @@ const env = require("dotenv").config();
 const app = express();
 const static = require("./routes/static");
 const utilities = require("./utilities/index");
+const inventoryRoute = require("./routes/inventoryRoute")
 const baseController = require("./controllers/baseController");
 /* ***********************
  * View Engine and Templates
@@ -21,26 +21,15 @@ const baseController = require("./controllers/baseController");
 app.set("view engine", "ejs");
 app.set("layout", "./layouts/layout"); // Specify the layout file path
 app.use(expressLayouts);
-/* ***********************
- * Middleware
- * ************************/
-app.use(session({
-  store: new (require('connect-pg-simple')(session))({
-    createTableIfMissing: true,
-    pool,
-  }),
-  secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true,
-  name: 'sessionId',
-}))
+
 /* ***********************
  * Routes
  *************************/
 app.use(static);
 //Index route
 app.get("/", utilities.handleErrors(baseController.buildHome));
-
+// Inventory routes
+app.use("/inv", inventoryRoute)
 /* ***********************
  * Express Error Handler
  * Place after all other middleware

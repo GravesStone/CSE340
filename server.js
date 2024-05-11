@@ -23,14 +23,7 @@ app.use("/inv", inventoryRoute);
 // Home route
 app.get("/", utilities.handleErrors(baseController.buildHome));
 
-// About route
-app.get("/about", utilities.handleErrors(baseController.aboutPage));
 
-// Services route
-app.get("/services", utilities.handleErrors(baseController.servicesPage));
-
-// Contact route
-app.get("/contact", utilities.handleErrors(baseController.contactPage));
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {

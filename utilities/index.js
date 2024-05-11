@@ -12,7 +12,7 @@ Util.getNav = async function (req, res, next) {
     list += "<li>"
     list +=
       '<a href="/inv/type/' +
-      row.classification_id +
+      row.classification_id + 
       '" title="See our inventory of ' +
       row.classification_name +
       ' vehicles">' +
@@ -21,7 +21,7 @@ Util.getNav = async function (req, res, next) {
     list += "</li>"
   })
   list += "</ul>"
-  return list
+  return list 
 }
 
 /* **************************************
@@ -33,16 +33,16 @@ Util.buildClassificationGrid = async function(data){
     grid = '<ul id="inv-display">'
     data.forEach(vehicle => { 
       grid += '<li>'
-      grid +=  '<a href="../../inv/description/'+ vehicle.inv_id 
+      grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
       + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
-      + 'description"><img src="' + vehicle.inv_thumbnail 
+      + 'details"><img src="' + vehicle.inv_thumbnail 
       +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
       +' on CSE Motors" /></a>'
       grid += '<div class="namePrice">'
       grid += '<hr />'
       grid += '<h2>'
-      grid += '<a href="../../inv/description/' + vehicle.inv_id +'" title="View ' 
-      + vehicle.inv_make + ' ' + vehicle.inv_model + ' description">' 
+      grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
+      + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
       + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
       grid += '</h2>'
       grid += '<span>$' 
@@ -56,30 +56,33 @@ Util.buildClassificationGrid = async function(data){
   }
   return grid
 }
+
 /* **************************************
 * Build the details view HTML
 * ************************************ */
 
 Util.buildInventoryDetailsGrid = async function(data){
 
-  let grid = ''; // Initialize grid as an empty string
-  let vehicle = data[0];
+  let grid
+  let vehicle = data[0]
   if (vehicle){
-    grid = '<div id="details-page">';
+    grid = '<div id="details-page">'
     grid += '<div class="details-images"> <img src="' + vehicle.inv_image
     +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-    +' on CSE Motors"></div>';
-    grid += '<div class="car-details"><h2>' + vehicle.inv_make + ' ' + vehicle.inv_model + ' Details</h2>';
-    grid += '<p> <strong> Price: $</strong>' + new Intl.NumberFormat('en-US').format(vehicle.inv_price)+'</p>';
-    grid += '<p><strong> Description: </strong>' + vehicle.inv_description + '</p>';
-    grid += '<p><strong> Color: </strong>' + vehicle.inv_color + '</p>';
-    grid += '<p><strong> Miles: </strong>' + vehicle.inv_miles.toLocaleString('en-US') + '</p></div>';
-    grid += '</div>';
-  } else {
-    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
+    +' on CSE Motors"></div>'
+    grid += '<div class="car-details"><h2>' + vehicle.inv_make + ' ' + vehicle.inv_model + ' Details</h2>'
+    grid += '<p> <strong> Price: $</strong>' + new Intl.NumberFormat('en-US').format(vehicle.inv_price)+'</p>'
+    grid += '<p><strong> Description: </strong>' + vehicle.inv_description + '</p>'
+    grid += '<p><strong> Color: </strong>' + vehicle.inv_color + '</p>'
+    grid += '<p><strong> Miles: </strong>' + vehicle.inv_miles.toLocaleString('en-US') + '</p></div>'
+    grid += '</div>'
+  }else{
+    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
-  return grid; // Return the constructed grid
+  return grid
 }
+
+
 Util.selectAllClassification = async function (selectedClassificationId) {
   console.log("Select All Classification")
   let data = await invModel.getAllClassifications();
@@ -95,6 +98,9 @@ Util.selectAllClassification = async function (selectedClassificationId) {
   select += '</select>';
   return select;
 }
+
+
+
 Util.selectClassification = async function (selectedClassificationId) {
   let data = await invModel.getClassifications();
   let select = '<label for="classification_id">Select Classification: </label><br>';
@@ -109,6 +115,7 @@ Util.selectClassification = async function (selectedClassificationId) {
   select += '</select>';
   return select;
 }
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

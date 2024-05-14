@@ -112,7 +112,7 @@ Util.selectClassification = async function (selectedClassificationId) {
     }
     select += '>' + row.classification_name + '</option>';
   });
-  select += '</select>';
+  select += '</select>'; 
   return select;
 }
 

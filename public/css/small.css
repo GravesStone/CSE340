@@ -248,13 +248,30 @@ div#details-page div.car-details{
   border-radius: 10px;
 }
 
-#error-message, #error-message-header{
+.error-container {
   text-align: center;
+  padding: 200px;
+  background-image: url('https://images.pexels.com/photos/78793/automotive-defect-broken-car-wreck-78793.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); /* Replace '/path/to/background.jpg' with the actual path to your image file */
+  background-size: cover; /* Cover the entire container with the background image */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Do not repeat the background image */
+  text-align: center;
+  color: yellow;
+  
+}
+.error-content{
+  font-size: 15px;
+  backdrop-filter: blur(10px);
+}
+.error-img {
+  max-width: 100%;
+  height: auto;
 }
 
-.error-img{
-  max-width: 100%;
+#error-message {
+  margin-top: 10px;
 }
+
 
 input:required:invalid, textarea:required:invalid{
   background-color: rgb(235, 187, 187)

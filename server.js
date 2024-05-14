@@ -83,9 +83,7 @@ const port = process.env.PORT
 const host = process.env.HOST
  
 /* *********************
-
 * Log statement to confirm server operation
-
 *************************/
 
 app.listen(port, host, () => {

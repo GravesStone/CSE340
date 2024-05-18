@@ -9,52 +9,57 @@
 body {
   margin: 0;
 }
+
 /* Header */
-#top-header{
+#top-header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 2fr;
 
 }
-.siteName{
+
+.siteName {
   grid-row: 1/3;
   grid-column: 1/3;
   font-size: 30px;
 }
 
-#acct-btn{
+#acct-btn {
   grid-column: 4/5;
 
   text-align: right;
 }
 
-#acct-btn a:hover{
+#acct-btn a:hover {
   background-color: #365486;
   color: #ffffff;
   padding: 2px;
 }
 
-.siteName a{
+.siteName a {
   font-weight: bold;
 }
 
-.siteName a, #acct-btn a{
+.siteName a,
+#acct-btn a {
   text-decoration: none;
   color: #365486;
 }
 
 /* Navigation */
-nav{
+nav {
   background-color: #000026;
   color: #fff;
   text-align: center;
   gap: 30%;
   grid-column: 3/4;
 }
-.tools a{
+
+.tools a {
   text-align: right;
 }
-nav ul{
+
+nav ul {
   margin: 0;
   list-style-type: none;
   display: grid;
@@ -62,14 +67,14 @@ nav ul{
   grid-template-rows: 1fr;
   padding: 0.5rem;
   grid-gap: 5px;
-  
+
 }
 
-nav ul li a:link{
+nav ul li a:link {
   text-decoration: none;
 }
 
-nav ul li a{
+nav ul li a {
   display: block;
   padding: .5rem 0;
   text-decoration: none;
@@ -78,7 +83,7 @@ nav ul li a{
   color: white;
 }
 
-nav ul li a:hover{
+nav ul li a:hover {
   background-color: white;
   color: #365486;
 }
@@ -87,31 +92,32 @@ nav ul li a:hover{
 
 /* Body */
 
-.content{
+.content {
   max-width: 405px;
   margin: auto;
 }
-#homeTitle{
+
+#homeTitle {
   font-size: 2.5rem;
 }
 
-section.hero{
+section.hero {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   max-width: 450px;
   margin: auto;
 }
 
-section.hero div.hero-image{
+section.hero div.hero-image {
   grid-column: 1/4;
   grid-row: 1/5;
 }
 
-section.hero div.hero-image picture.heroImage img{
+section.hero div.hero-image picture.heroImage img {
   width: 100%;
 }
 
-#hero-content-wrapper{
+#hero-content-wrapper {
   background-color: #dcf2f1b5;
   grid-column: 1/2;
   grid-row: 1/3;
@@ -119,12 +125,12 @@ section.hero div.hero-image picture.heroImage img{
   color: #000;
 }
 
-div.hero-btn{
+div.hero-btn {
   margin: auto;
   font-size: 1.5rem;
 }
 
-div.hero-btn button{
+div.hero-btn button {
   background: #365486;
   color: whitesmoke;
   border-radius: 5px;
@@ -132,55 +138,57 @@ div.hero-btn button{
   padding: 10px;
 }
 
-div.hero-header h2, div.hero-header p{
+div.hero-header h2,
+div.hero-header p {
   margin: 0;
   padding: 2px;
 }
 
-div.upgrades-section{
+div.upgrades-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
   place-items: center;
   grid-gap: 10px;
 }
 
-div.first-content ul{
+div.first-content ul {
   padding-left: 20px;
 }
 
-div.first-content ul li{
+div.first-content ul li {
   padding-left: 10px;
   padding-top: 20px;
 }
 
 
-.u{
+.u {
   width: 100%;
   text-align: center;
 }
 
-.upgradeImg{
+.upgradeImg {
   background-color: #dcf2f1;
   padding: 10px;
   border: 1px solid #365486;
 }
 
-#upgradeOneContent div.upgradeImg, #upgradeThreeContent div.upgradeImg{
+#upgradeOneContent div.upgradeImg,
+#upgradeThreeContent div.upgradeImg {
   padding-top: 28px;
-} 
+}
 
-#upgradeFourContent div.upgradeImg{
+#upgradeFourContent div.upgradeImg {
   padding-top: 24px;
 }
 
-  /* Inventory Display */
-#inv-display{
+/* Inventory Display */
+#inv-display {
   display: grid;
   margin: 0 auto;
   grid-template-columns: 1fr 1fr;
 }
 
-#inv-display li{
+#inv-display li {
   justify-self: center;
   max-width: 200px;
   border: 2px solid #365486;
@@ -192,53 +200,55 @@ div.first-content ul li{
   margin: 10px;
 }
 
-#inv-display li a{
+#inv-display li a {
   margin: auto;
 }
 
-#inv-display li a img{
+#inv-display li a img {
   max-width: 100%;
 }
-#inv-display li div.namePrice{
-  display: inline-block; /* or inline if the content is short and you want it to stay on one line */
+
+#inv-display li div.namePrice {
+  display: inline-block;
+  /* or inline if the content is short and you want it to stay on one line */
   text-align: center;
 }
 
 
-#inv-display li div.namePrice h2{
+#inv-display li div.namePrice h2 {
   margin: auto;
   padding: 10px;
   font-size: 1em;
 }
 
-#inv-display li div.namePrice span{
+#inv-display li div.namePrice span {
   margin: auto;
 }
 
-#inv-display li div.namePrice hr{
+#inv-display li div.namePrice hr {
   border: 1px solid black;
 }
 
 /* Inventory Details */
-div#details-page{
+div#details-page {
   background-color: #dcf2f1;
   border-radius: 10px;
 }
 
-div#details-page div.details-images{
+div#details-page div.details-images {
   max-width: 500px;
   margin: auto;
   padding: 10px;
 }
 
-div#details-page div.details-images img{
+div#details-page div.details-images img {
   max-width: 100%;
   border: 1px solid black;
   border-radius: 10px;
-  
+
 }
 
-div#details-page div.car-details{
+div#details-page div.car-details {
   max-width: 500px;
   justify-content: center;
   margin: auto;
@@ -251,18 +261,24 @@ div#details-page div.car-details{
 .error-container {
   text-align: center;
   padding: 200px;
-  background-image: url('https://images.pexels.com/photos/78793/automotive-defect-broken-car-wreck-78793.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); /* Replace '/path/to/background.jpg' with the actual path to your image file */
-  background-size: cover; /* Cover the entire container with the background image */
-  background-position: center; /* Center the background image */
-  background-repeat: no-repeat; /* Do not repeat the background image */
+  background-image: url('https://images.pexels.com/photos/78793/automotive-defect-broken-car-wreck-78793.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  /* Replace '/path/to/background.jpg' with the actual path to your image file */
+  background-size: cover;
+  /* Cover the entire container with the background image */
+  background-position: center;
+  /* Center the background image */
+  background-repeat: no-repeat;
+  /* Do not repeat the background image */
   text-align: center;
   color: yellow;
-  
+
 }
-.error-content{
+
+.error-content {
   font-size: 15px;
   backdrop-filter: blur(10px);
 }
+
 .error-img {
   max-width: 100%;
   height: auto;
@@ -273,12 +289,18 @@ div#details-page div.car-details{
 }
 
 
-input:required:invalid, textarea:required:invalid{
+input:required:invalid,
+textarea:required:invalid {
   background-color: rgb(235, 187, 187)
 }
 
 
-input[type=email], input[type=password], input[type=number],input[type=text], select#classification_id, textarea#inv_description {
+input[type=email],
+input[type=password],
+input[type=number],
+input[type=text],
+select#classification_id,
+textarea#inv_description {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -288,12 +310,13 @@ input[type=email], input[type=password], input[type=number],input[type=text], se
   box-sizing: border-box;
 }
 
-textarea#inv_description{
+textarea#inv_description {
   resize: none;
   height: 200px;
 }
 
-button[type=submit], input[type=submit] {
+button[type=submit],
+input[type=submit] {
   width: 100%;
   background-color: #365486;
   color: white;
@@ -304,13 +327,15 @@ button[type=submit], input[type=submit] {
   cursor: pointer;
 }
 
-button[type=submit]:hover, input[type=submit]:hover {
+button[type=submit]:hover,
+input[type=submit]:hover {
   background-color: #ffffff;
   color: #365486;
   border: 1px solid #365486;
 }
 
-form, div.registration-link{
+form,
+div.registration-link {
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
@@ -318,21 +343,31 @@ form, div.registration-link{
   margin: auto;
 }
 
-ul.notice{
+ul.notice {
   list-style-type: none;
   color: red;
   font-style: italic;
   font-weight: bold;
 }
 
-a#classification-button,a#inventory-button, a#edit-info-button, a#inv-management-button, a#approval-button, a#approval-button1{
+a#classification-button,
+a#inventory-button,
+a#edit-info-button,
+a#inv-management-button,
+a#approval-button,
+a#approval-button1 {
   text-decoration: none;
   margin: 10px auto;
   width: 50%;
   display: block;
 }
 
-a#classification-button h2, a#inventory-button h2, a#edit-info-button h3, a#inv-management-button h3, a#approval-button h2, a#approval-button1 h2{
+a#classification-button h2,
+a#inventory-button h2,
+a#edit-info-button h3,
+a#inv-management-button h3,
+a#approval-button h2,
+a#approval-button1 h2 {
   text-align: center;
   background-color: #365486;
   color: white;
@@ -343,18 +378,30 @@ a#classification-button h2, a#inventory-button h2, a#edit-info-button h3, a#inv-
   cursor: pointer;
 }
 
-a#classification-button h2:hover,a#inventory-button h2:hover, a#edit-info-button h3:hover,  a#inv-management-button h3:hover, a#approval-button h2:hover, a#approval-button1 h2:hover{
+a#classification-button h2:hover,
+a#inventory-button h2:hover,
+a#edit-info-button h3:hover,
+a#inv-management-button h3:hover,
+a#approval-button h2:hover,
+a#approval-button1 h2:hover {
   background-color: #ffffff;
   color: #365486;
   border: 1px solid #365486;
 }
 
-table#inventoryDisplay, table#unapprovedClassification, table#unapprovedInventory{
-  
+table#inventoryDisplay,
+table#unapprovedClassification,
+table#unapprovedInventory {
+
   margin: auto;
 }
 
-a#modify-button, a#delete-button, a#approved-button, a#reject-button, a#approved-button1, a#reject-button1{
+a#modify-button,
+a#delete-button,
+a#approved-button,
+a#reject-button,
+a#approved-button1,
+a#reject-button1 {
   text-decoration: none;
   margin: 10px auto;
   width: 100%;
@@ -369,30 +416,37 @@ a#modify-button, a#delete-button, a#approved-button, a#reject-button, a#approved
   cursor: pointer;
 }
 
-a#modify-button:hover, a#delete-button:hover, a#approved-button:hover, a#reject-button:hover, a#approved-button1:hover, a#reject-button1:hover{
+a#modify-button:hover,
+a#delete-button:hover,
+a#approved-button:hover,
+a#reject-button:hover,
+a#approved-button1:hover,
+a#reject-button1:hover {
   background-color: #ffffff;
   color: #365486;
 
 }
 
-tbody>tr{
+tbody>tr {
   border-radius: 5px;
   background-color: #f2f2f2;
   max-width: 500px;
   margin: auto;
 }
 
-td{
+td {
   padding: 5px;
 }
 
-div.select-classification{
+div.select-classification {
   margin: 10px auto;
-    width: 50%;
-    display: block;
+  width: 50%;
+  display: block;
 }
 
-#unapprovedInventory > tbody > tr > td:nth-child(5), #unapprovedClassification > tbody > tr > td:nth-child(4)  {
+#unapprovedInventory>tbody>tr>td:nth-child(5),
+#unapprovedClassification>tbody>tr>td:nth-child(4) {
   background-color: white;
 }
+
 /* Footer */

@@ -1,26 +1,26 @@
-
-
 /* *********************
 
 * Require Statements ---
 
 *************************/
+const bodyParser = require("body-parser");
+const session = require("express-session");
+const pool = require("./database/");
 
-const expressLayouts = require("express-ejs-layouts")
+const expressLayouts = require("express-ejs-layouts");
 
-const express = require("express")
+const express = require("express");
 
-const env = require("dotenv").config()
+const env = require("dotenv").config();
 
-const app = express()
-
-const static = require("./routes/static")
-
-const baseController = require("./controllers/baseController")
-
-const inventoryRoute = require("./routes/inventoryRoute")
-
-const utilities = require("./utilities/index")
+const app = express();
+//Routers Section
+const static = require("./routes/static");
+const baseController = require("./controllers/baseController");
+const inventoryRoute = require("./routes/inventoryRoute");
+const accountRoute = require("./routes/accountRoute");
+const utilities = require("./utilities/index");
+const accountController = require("./controllers/accountController");
 /* *********************
 
 * View Engine and Templates
@@ -32,44 +32,70 @@ app.set("view engine", "ejs");
 app.set("layout", "./layouts/layout"); // Specify the layout file path
 
 app.use(expressLayouts);
- 
+
+/* ***********************
+ * Middleware
+ * ************************/
+
+app.use(
+  session({
+    store: new (require("connect-pg-simple")(session))({
+      createTableIfMissing: true,
+      pool,
+    }),
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    name: "sessionId",
+  })
+);
+
+//---- Express Messages Middleware ----//
+app.use(require("connect-flash")());
+app.use(function (req, res, next) {
+  res.locals.messages = require("express-messages")(req, res);
+  next();
+});
+// ------add body-parser------//
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 /* *********************
-
-* Routes
-
-*************************/
-
-app.use(static)
-
+ * Routes
+ *************************/
 //Index route
-app.use("/inv", inventoryRoute)
+app.use(static);
 // Inventory routes
-app.get("/", utilities.handleErrors(baseController.buildHome))
-app.get("/", function(req, res) {
-
+app.use("/inv", inventoryRoute);
+// Account Route
+app.use("/account", accountRoute);
+app.get("/", utilities.handleErrors(baseController.buildHome));
+app.get("/", function (req, res) {
   res.render("index", { title: "Home" });
-
 });
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
-  next({status: 404, message: 'Sorry, we appear to have lost that page.'})
-})
+  next({ status: 404, message: "Sorry, we appear to have lost that page." });
+});
 
 /* ***********************
-* Express Error Handler
-* Place after all other middleware
-*************************/
+ * Express Error Handler
+ * Place after all other middleware
+ *************************/
 app.use(async (err, req, res, next) => {
-  let nav = await utilities.getNav()
-  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if(err.status == 404){ message = err.message} else {message = 'We are experiencing some technical issues on our end. Please try again in a few moments.'}
+  let nav = await utilities.getNav();
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
+  if (err.status == 404) {
+    message = err.message;
+  } else {
+    message = "Oh no! There was a crash. Maybe try a different route?";
+  }
   res.render("errors/error", {
-    title: err.status || 'Server Error',
+    title: err.status || "Server Error",
     message,
-    nav
-  })
-})
+    nav,
+  });
+});
 
 /* *********************
 * Local Server Information
@@ -78,16 +104,14 @@ app.use(async (err, req, res, next) => {
 
 *************************/
 
-const port = process.env.PORT
+const port = process.env.PORT;
 
-const host = process.env.HOST
- 
+const host = process.env.HOST;
+
 /* *********************
 * Log statement to confirm server operation
 *************************/
 
 app.listen(port, host, () => {
-
-  console.log(`app listening on ${host}:${port}`)
-
-})
+  console.log(`app listening on ${host}:${port}`);
+});

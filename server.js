@@ -3,7 +3,9 @@
 * Require Statements ---
 
 *************************/
+
 const bodyParser = require("body-parser");
+
 const session = require("express-session");
 const pool = require("./database/");
 
@@ -14,13 +16,17 @@ const express = require("express");
 const env = require("dotenv").config();
 
 const app = express();
-//Routers Section
+
 const static = require("./routes/static");
+
 const baseController = require("./controllers/baseController");
+
 const inventoryRoute = require("./routes/inventoryRoute");
+
 const accountRoute = require("./routes/accountRoute");
+
 const utilities = require("./utilities/index");
-const accountController = require("./controllers/accountController");
+
 /* *********************
 
 * View Engine and Templates
@@ -50,18 +56,20 @@ app.use(
   })
 );
 
-//---- Express Messages Middleware ----//
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+// Express Messages Middleware
 app.use(require("connect-flash")());
 app.use(function (req, res, next) {
   res.locals.messages = require("express-messages")(req, res);
   next();
 });
-// ------add body-parser------//
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 /* *********************
- * Routes
- *************************/
+
+* Routes
+
+*************************/
 //Index route
 app.use(static);
 // Inventory routes
@@ -109,7 +117,9 @@ const port = process.env.PORT;
 const host = process.env.HOST;
 
 /* *********************
+
 * Log statement to confirm server operation
+
 *************************/
 
 app.listen(port, host, () => {

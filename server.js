@@ -3,6 +3,7 @@
 * Require Statements ---
 
 *************************/
+const cookieParser = require("cookie-parser");
 
 const bodyParser = require("body-parser");
 
@@ -65,6 +66,9 @@ app.use(function (req, res, next) {
   res.locals.messages = require("express-messages")(req, res);
   next();
 });
+
+app.use(cookieParser());
+app.use(utilities.checkJWTToken);
 /* *********************
 
 * Routes
@@ -75,7 +79,7 @@ app.use(static);
 // Inventory routes
 app.use("/inv", inventoryRoute);
 // Account Route
-app.use("/account", accountRoute);
+app.use("/account", require("./routes/accountRoute"));
 app.get("/", utilities.handleErrors(baseController.buildHome));
 app.get("/", function (req, res) {
   res.render("index", { title: "Home" });

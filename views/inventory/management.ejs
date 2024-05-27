@@ -1,24 +1,24 @@
 <!--  -->
-<h1>
-    <%= title %>
-</h1>
+<h1><%= title %></h1>
 
-<%- messages() %>
+<%- messages() %> <% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error=> { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
 
-    <% if (errors) { %>
-        <ul class="notice">
-            <% errors.array().forEach(error=> { %>
-                <li>
-                    <%= error.msg %>
-                </li>
-                <% }) %>
-        </ul>
-        <% } %>
+<a id="classification-button" href="/inv/classification">
+  <h2>Add New Classification</h2>
+</a>
 
-            <a id="classification-button" href="/inv/classification">
-                <h2>Add New Classification</h2>
-            </a>
+<a id="inventory-button" href="/inv/inventory">
+  <h2>Add New Vehicle</h2>
+</a>
 
-            <a id="inventory-button" href="/inv/inventory">
-                <h2>Add New Vehicle</h2>
-            </a>
+<h2>Manage Inventory</h2>
+<div class="select-classification"><%- classification %></div>
+<table id="inventoryDisplay"></table>
+
+<script src="../../js/inventory.js"></script>

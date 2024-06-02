@@ -1,0 +1,9 @@
+<!-- views/itemReviews.ejs -->
+<h2>Reviews</h2>
+<% reviews.forEach(review => { %>
+  <div>
+    <p>Rating: <%= review.rating %></p>
+    <p>Comment: <%= review.comment %></p>
+    <p>Submitted on: <%= review.created_at %></p>
+  </div>
+<% }) %>
